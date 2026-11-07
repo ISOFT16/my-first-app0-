@@ -1,0 +1,46 @@
+name: fox_ai
+description: "Fox AI — ИИ-помощник в песочно-бежевом стиле, который сам решает примеры и уравнения."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.6.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^1.2.2
+  shared_preferences: ^2.3.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  flutter_launcher_icons: ^0.14.4
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  image_path: assets/icon.png
+  adaptive_icon_background: "#F3EADF"
+  adaptive_icon_foreground: assets/icon_foreground.png
+  windows:
+    generate: true
+    image_path: assets/icon.png
+
+flutter:
+  uses-material-design: true
+
+  # Официальный шрифт Google Sans (SIL Open Font License, см. assets/fonts/OFL.txt).
+  fonts:
+    - family: Google Sans
+      fonts:
+        - asset: assets/fonts/GoogleSans-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/GoogleSans-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/GoogleSans-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/GoogleSans-Bold.ttf
+          weight: 700
