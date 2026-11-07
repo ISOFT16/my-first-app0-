@@ -95,7 +95,7 @@ class FoxMath {
 
   static String? _percent(String s) {
     final m = RegExp(
-      r'(\d+(?:[.,]\d+)?)\s*(?:%|процент\w*)\s*(?:от|из)\s*(\d+(?:[.,]\d+)?)',
+      r'(\d+(?:[.,]\d+)?)\s*(?:%|процент[а-я]*)\s*(?:от|из)\s*(\d+(?:[.,]\d+)?)',
       caseSensitive: false,
     ).firstMatch(s);
     if (m == null) return null;
