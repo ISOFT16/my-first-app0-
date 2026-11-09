@@ -1,4 +1,4 @@
-name: Build Fox AI
+name: Build Vigil AI
 
 on:
   push:
@@ -27,15 +27,15 @@ jobs:
       - run: flutter build apk --release
       - uses: actions/upload-artifact@v4
         with:
-          name: FoxAI-android
+          name: VigilAI-android
           path: build/app/outputs/flutter-apk/app-release.apk
       - name: Выложить APK в Releases
         run: |
-          cp build/app/outputs/flutter-apk/app-release.apk FoxAI.apk
+          cp build/app/outputs/flutter-apk/app-release.apk VigilAI.apk
           gh release delete latest --yes --cleanup-tag || true
-          gh release create latest FoxAI.apk --target "$GITHUB_SHA" \
-            --title "Fox AI (последняя сборка)" \
-            --notes "Скачайте FoxAI.apk и установите на Android."
+          gh release create latest VigilAI.apk --target "$GITHUB_SHA" \
+            --title "Vigil AI (последняя сборка)" \
+            --notes "Скачайте VigilAI.apk и установите на Android."
         env:
           GH_TOKEN: ${{ github.token }}
 
@@ -54,7 +54,7 @@ jobs:
       - run: flutter build windows --release
       - uses: actions/upload-artifact@v4
         with:
-          name: FoxAI-windows
+          name: VigilAI-windows
           path: build/windows/x64/runner/Release/
 
   ios:
@@ -74,8 +74,8 @@ jobs:
         run: |
           mkdir -p Payload
           cp -R build/ios/iphoneos/Runner.app Payload/
-          zip -qr FoxAI-unsigned.ipa Payload
+          zip -qr VigilAI-unsigned.ipa Payload
       - uses: actions/upload-artifact@v4
         with:
-          name: FoxAI-ios-unsigned
-          path: FoxAI-unsigned.ipa
+          name: VigilAI-ios-unsigned
+          path: VigilAI-unsigned.ipa

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'app_state.dart';
-import 'fox_logo.dart';
+import 'app_logo.dart';
 
-/// Боковое меню Fox AI: тема, сервер ИИ, очистка чата, о приложении.
+/// Боковое меню Vigil AI: сервер ИИ, новый чат, о приложении.
 class SettingsDrawer extends StatelessWidget {
   const SettingsDrawer({super.key, required this.state});
 
@@ -32,15 +32,15 @@ class SettingsDrawer extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    const FoxLogo(size: 52),
+                    const AppLogo(size: 52),
                     const SizedBox(width: 14),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Fox AI', style: text.titleLarge),
+                          Text('Vigil AI', style: text.titleLarge),
                           Text(
-                            'Ваш лисий помощник',
+                            'Ваш умный помощник',
                             style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
                           ),
                         ],
@@ -48,27 +48,6 @@ class SettingsDrawer extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
-              _header(context, 'Тема'),
-              Row(
-                children: [
-                  for (final (mode, icon, label) in [
-                    (ThemeMode.system, Icons.contrast_rounded, 'Авто'),
-                    (ThemeMode.light, Icons.wb_sunny_outlined, 'Песок'),
-                    (ThemeMode.dark, Icons.coffee_outlined, 'Кофе'),
-                  ])
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 3),
-                        child: _ThemeTile(
-                          icon: icon,
-                          label: label,
-                          selected: state.themeMode == mode,
-                          onTap: () => state.setThemeMode(mode),
-                        ),
-                      ),
-                    ),
-                ],
               ),
               _header(context, 'Чат'),
               ListTile(
@@ -90,7 +69,7 @@ class SettingsDrawer extends StatelessWidget {
                 trailing: const Icon(Icons.chevron_right_rounded),
                 onTap: () => editAiServer(context, state),
               ),
-              _header(context, 'Что умеет Fox AI'),
+              _header(context, 'Что умеет Vigil AI'),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Text(
@@ -124,41 +103,6 @@ class SettingsDrawer extends StatelessWidget {
   }
 }
 
-class _ThemeTile extends StatelessWidget {
-  const _ThemeTile({required this.icon, required this.label, required this.selected, required this.onTap});
-
-  final IconData icon;
-  final String label;
-  final bool selected;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    return Material(
-      color: selected ? scheme.primary : scheme.surfaceContainerHigh,
-      borderRadius: BorderRadius.circular(18),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(18),
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12),
-          child: Column(
-            children: [
-              Icon(icon, color: selected ? scheme.onPrimary : scheme.primary),
-              const SizedBox(height: 4),
-              Text(
-                label,
-                style: TextStyle(fontWeight: FontWeight.w600, color: selected ? scheme.onPrimary : scheme.onSurface),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 Future<void> editAiServer(BuildContext context, AppState state) async {
   final base = TextEditingController(text: state.aiBase);
   final key = TextEditingController(text: state.aiKey);
@@ -167,13 +111,13 @@ Future<void> editAiServer(BuildContext context, AppState state) async {
     context: context,
     builder: (c) => AlertDialog(
       icon: const Icon(Icons.auto_awesome_rounded),
-      title: const Text('Сервер Fox AI'),
+      title: const Text('Сервер Vigil AI'),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             const Text(
-              'Оставьте адрес пустым — Fox AI будет работать бесплатно без ключа '
+              'Оставьте адрес пустым — Vigil AI будет работать бесплатно без ключа '
               '(не чаще одного ответа в 45 секунд). Или укажите OpenAI-совместимый сервер со своим ключом.',
             ),
             const SizedBox(height: 12),

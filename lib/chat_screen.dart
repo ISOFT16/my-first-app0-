@@ -6,10 +6,11 @@ import 'package:flutter/services.dart';
 
 import 'app_state.dart';
 import 'fox_ai.dart';
-import 'fox_logo.dart';
+import 'app_logo.dart';
+import 'theme.dart';
 import 'settings_drawer.dart';
 
-/// Главный экран приложения Fox AI — чат.
+/// Главный экран приложения Vigil AI — чат.
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key, required this.state});
 
@@ -67,7 +68,7 @@ class _ChatScreenState extends State<ChatScreen> {
             model: widget.state.aiModel,
           );
         } on FoxAiRateLimit catch (e) {
-          // Бесплатный лимит: лиса сама подождёт и спросит ещё раз.
+          // Бесплатный лимит: подождём и спросим ещё раз.
           if (attempt >= 2 || !mounted) rethrow;
           await _waitFor(e.seconds + 1);
           if (!mounted) return;
@@ -77,7 +78,7 @@ class _ChatScreenState extends State<ChatScreen> {
     } catch (e) {
       final msg = e is FoxAiException
           ? e.message
-          : 'Не получилось связаться с Fox AI. Проверьте интернет и попробуйте ещё раз.';
+          : 'Не получилось связаться с Vigil AI. Проверьте интернет и попробуйте ещё раз.';
       reply = AiMessage(fromUser: false, text: msg, isError: true);
     }
     if (!mounted) return;
@@ -146,10 +147,10 @@ class _ChatScreenState extends State<ChatScreen> {
         title: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const FoxLogo(size: 28),
+            const AppLogo(size: 28),
             const SizedBox(width: 8),
             Text.rich(TextSpan(children: [
-              TextSpan(text: 'fox', style: TextStyle(fontWeight: FontWeight.w800, color: scheme.primary)),
+              TextSpan(text: 'vigil', style: const TextStyle(fontWeight: FontWeight.w800, color: vigilRed)),
               const TextSpan(text: ' ai', style: TextStyle(fontWeight: FontWeight.w400)),
             ])),
           ],
@@ -210,10 +211,10 @@ class _EmptyState extends StatelessWidget {
                 height: 104,
                 decoration: BoxDecoration(color: scheme.primaryContainer, shape: BoxShape.circle),
                 alignment: Alignment.center,
-                child: const FoxLogo(size: 72),
+                child: const AppLogo(size: 72),
               ),
               const SizedBox(height: 18),
-              Text('Привет! Я Fox AI', style: text.headlineMedium, textAlign: TextAlign.center),
+              Text('Привет! Я Vigil AI', style: text.headlineMedium, textAlign: TextAlign.center),
               const SizedBox(height: 6),
               Text(
                 'Спросите о чём угодно. Примеры и уравнения решаю сам — мгновенно и даже без интернета.',
@@ -306,7 +307,7 @@ class _Bubble extends StatelessWidget {
           if (!user) ...[
             const Padding(
               padding: EdgeInsets.only(bottom: 4),
-              child: FoxLogo(size: 26),
+              child: AppLogo(size: 26),
             ),
             const SizedBox(width: 6),
           ],
@@ -327,7 +328,7 @@ class _Bubble extends StatelessWidget {
   }
 }
 
-/// «Лиса думает» — три прыгающие точки.
+/// «Думаю…» — три прыгающие точки.
 class _ThinkingBubble extends StatefulWidget {
   const _ThinkingBubble({this.wait = 0});
 
@@ -354,7 +355,7 @@ class _ThinkingBubbleState extends State<_ThinkingBubble> with SingleTickerProvi
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: Row(
         children: [
-          const FoxLogo(size: 26),
+          const AppLogo(size: 26),
           const SizedBox(width: 6),
           if (widget.wait > 0)
             Container(
@@ -365,7 +366,7 @@ class _ThinkingBubbleState extends State<_ThinkingBubble> with SingleTickerProvi
                 border: Border.all(color: scheme.outlineVariant),
               ),
               child: Text(
-                'Лиса переводит дух… отвечу через ${widget.wait} сек',
+                'Небольшая пауза… отвечу через ${widget.wait} сек',
                 style: TextStyle(color: scheme.onSurfaceVariant),
               ),
             )
@@ -445,7 +446,7 @@ class _Composer extends StatelessWidget {
                     decoration: InputDecoration(
                       isCollapsed: true,
                       border: InputBorder.none,
-                      hintText: 'Спросите Fox AI…',
+                      hintText: 'Спросите Vigil AI…',
                       hintStyle: TextStyle(color: scheme.onSurfaceVariant),
                     ),
                     onSubmitted: (_) => onSend(),
@@ -454,7 +455,7 @@ class _Composer extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Material(
-                color: busy ? scheme.surfaceContainerHigh : scheme.primary,
+                color: busy ? scheme.surfaceContainerHigh : vigilRed,
                 shape: const CircleBorder(),
                 child: InkWell(
                   customBorder: const CircleBorder(),
@@ -466,7 +467,7 @@ class _Composer extends StatelessWidget {
                             padding: const EdgeInsets.all(14),
                             child: CircularProgressIndicator(strokeWidth: 2.4, color: scheme.primary),
                           )
-                        : Icon(Icons.arrow_upward_rounded, color: scheme.onPrimary),
+                        : const Icon(Icons.arrow_upward_rounded, color: Colors.white),
                   ),
                 ),
               ),

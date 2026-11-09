@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'fox_ai.dart';
 
-/// Состояние приложения Fox AI: тема, настройки сервера и история чата.
+/// Состояние приложения Vigil AI: тема, настройки сервера и история чата.
 class AppState extends ChangeNotifier {
   static const _kTheme = 'theme';
   static const _kAiBase = 'ai_base';

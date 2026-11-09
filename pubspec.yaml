@@ -1,5 +1,5 @@
 name: fox_ai
-description: "Fox AI — ИИ-помощник в песочно-бежевом стиле, который сам решает примеры и уравнения."
+description: "Vigil AI — ИИ-помощник в чёрном стиле, который сам решает примеры и уравнения."
 publish_to: 'none'
 version: 1.0.0+1
 
@@ -23,7 +23,7 @@ flutter_launcher_icons:
   ios: true
   remove_alpha_ios: true
   image_path: assets/icon.png
-  adaptive_icon_background: "#F3EADF"
+  adaptive_icon_background: "#070707"
   adaptive_icon_foreground: assets/icon_foreground.png
   windows:
     generate: true
@@ -31,6 +31,9 @@ flutter_launcher_icons:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/logo.png
 
   # Официальный шрифт Google Sans (SIL Open Font License, см. assets/fonts/OFL.txt).
   fonts:
